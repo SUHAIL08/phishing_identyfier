@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linescan — Phishing URL Detector</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">◢◤</span>
+      <span class="brand-name">Linescan</span>
+    </div>
+    <div class="model-badge" id="modelBadge">model loading…</div>
+  </div>
+  <div class="topbar-right">
+      <div class="author-block">
+        <span class="author-name">Mohamed Suhail</span>
+        <span class="author-title">Cyber Security Learner</span>
+      </div>
+      <div class="model-badge" id="modelBadge">model loading…</div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="intake">
+    <h1>Check a link before you click it.</h1>
+    <p class="lede">Paste a URL. Linescan extracts structural and lexical signals from the text itself and scores it against a trained classifier — no page is ever loaded.</p>
+
+    <form id="scanForm" class="scan-form" autocomplete="off">
+      <input
+        type="text"
+        id="urlInput"
+        placeholder="e.g. paypal-secure-login.verify-account.tk/update"
+        spellcheck="false"
+      >
+      <button type="submit" id="scanBtn">Scan</button>
+    </form>
+  </section>
+
+  <section id="resultSection" class="result hidden">
+    <div class="result-card" id="resultCard">
+      <div class="result-top">
+        <div class="verdict" id="verdict">—</div>
+        <div class="confidence" id="confidenceWrap">
+          <div class="confidence-bar-track">
+            <div class="confidence-bar-fill" id="confidenceBar"></div>
+          </div>
+          <span id="confidenceLabel">—</span>
+        </div>
+      </div>
+      <div class="result-url" id="resultUrl"></div>
+      <div class="result-meta" id="resultMeta"></div>
+    </div>
+
+    <div class="signals">
+      <h2>Signals detected</h2>
+      <div class="signal-grid" id="signalGrid"></div>
+    </div>
+  </section>
+
+  <section class="history-section">
+    <h2>Recent scans</h2>
+    <div class="history-list" id="historyList">
+      <p class="empty-note">Nothing scanned yet this session.</p>
+    </div>
+  </section>
+
+  <section class="about-model">
+    <h2>About the model</h2>
+    <div class="model-stats" id="modelStats">
+      <div class="stat"><span class="stat-value" id="statAcc">—</span><span class="stat-label">accuracy</span></div>
+      <div class="stat"><span class="stat-value" id="statPrec">—</span><span class="stat-label">precision</span></div>
+      <div class="stat"><span class="stat-value" id="statRec">—</span><span class="stat-label">recall</span></div>
+    </div>
+    <p class="model-note">Trained on 5,000 labeled URLs (2,500 phishing / 2,500 legitimate) using 16 lexical and structural features computed directly from the URL string — length, entropy, suspicious keywords, hyphen/digit counts, TLD reputation, and more. Random Forest classifier, evaluated on a held-out 20% test split. Phishing examples follow well-documented real-world construction patterns (brand impersonation, IP hosts, URL shorteners, homograph-style subdomains).</p>
+  </section>
+
+</main>
+
+<footer class="wrap footer-note">
+  Educational project — not a substitute for enterprise threat intelligence. Always verify suspicious links independently.
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
